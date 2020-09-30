@@ -1,8 +1,8 @@
 version: '2'
 services:
   bitcoind:
-    image: Roberrtt/robert
-    #build: "./BU"
+    image: debian:stretch-slim 
+    #build: "./"
     container_name: bitcoind
     ports:
       # faucet api
@@ -14,16 +14,15 @@ services:
     expose:
       # rpc api
       - "18443"
-    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443  -addnode=bitcoind_node1:18444  -addnode=bitcoind_node2:18444 -minrelaytxfee=1231321
     volumes:
-      - ./BU/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/bitcoind:/home/bitcoin/.bitcoin
   
     
       
   bitcoind_node1:
-    image: Roberrtt/robert
-    #build: "./BU"
+    image: debian:stretch-slim 
+    #build: "./"
     container_name: bitcoind_node1
     ports:
       # faucet api
@@ -36,14 +35,15 @@ services:
       # rpc api
       - "18454"
     volumes:
-      - ./BU/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/btc_node1/bitcoind:/home/bitcoin/.bitcoin
-    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444  -addnode=bitcoind_node2:18444 -addnode=bitcoind_node3:18444 -addnode=bitcoind_node4:18444 -addnode=bitcoind_node5:18444 -addnode=bitcoind_node6:18444
     links:
       - "bitcoind"
+      
+      
   bitcoind_node2:
-    image:  Roberrtt/robert
-    #build: "./BU"
+    image:  debian:stretch-slim 
+    #build: "./"
     container_name: bitcoind_node2
     ports:
       # faucet api
@@ -56,8 +56,7 @@ services:
       # rpc api
       - "18464"
     volumes:
-      - ./BU/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/btc_node2/bitcoind:/home/bitcoin/.bitcoin
-    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -addnode=bitcoind_node3:18444 -addnode=bitcoind_node4:18444 -addnode=bitcoind_node5:18444 -addnode=bitcoind_node6:18444
     links:
       - "bitcoind"
