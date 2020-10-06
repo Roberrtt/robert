@@ -1,0 +1,77 @@
+version: '3.3'
+services:
+  litecoind:
+    image: uphold/litecoin-core:0.17
+    container_name: litecoind
+    command: -printtoconsole -server=1 -listen=1 -regtest=1 -port=19444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19443 -addnode=litecoind_node1:19443   -addnode=litecoind_node2:19444 -addnode=litecoind_node3:19444 -addnode=litecoind_node4:19444 -addnode=litecoind_node5:19444 -addnode=litecoind_node6:19444
+    volumes:
+      - ./data/litecoin-regtes/:/home/litecoin/.litecoin
+      - ./litecoind/litecoin.conf:/root/.litecoin/litecoin.conf
+    ports:
+      - 19443:19443
+      - 19444:19444
+    expose:
+      - "19443"
+    
+
+  litecoind_node1:
+    image: uphold/litecoin-core:0.17
+    container_name: litecoind_node1
+    command: -printtoconsole -server=1 -listen=1 -regtest=1 -port=19444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=19443 -addnode=litecoind:19443 -addnode=litecoind_node2:19443 -addnode=litecoind_node3:19444 -addnode=litecoind_node4:19444 -addnode=litecoind_node5:19444 -addnode=litecoind_node6:19444
+    volumes:
+      - ./data/litecoin-node1/:/home/litecoin/.litecoin
+      #- ./litecoind/litecoin.conf:/home/litecoin/.litecoin/litecoin.conf
+    ports:
+      - 20201:19443
+      - 20202:19444
+    links:
+      - "litecoind"
+    expose:
+      - "20201"
+
+
+  litecoind_node2:
+    image: uphold/litecoin-core:0.17
+    container_name: litecoind_node2
+    command: -printtoconsole -regtest=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19443 -addnode=litecoind:19444 -addnode=litecoind_node1:19444 -addnode=litecoind_node3:19444 -addnode=litecoind_node4:19444 -addnode=litecoind_node5:19444 -addnode=litecoind_node6:19444
+    volumes:
+      - ./data/litecoin-node2/:/home/litecoin/.litecoin
+      #- ./litecoind/litecoin.conf:/home/litecoin/.litecoin/litecoin.conf
+    ports:
+      - 20301:19443
+      - 20302:19444
+    links:
+      - "litecoind"
+    expose:
+      - "20301"
+  
+
+  litecoind_node3:
+    image: uphold/litecoin-core:0.17
+    container_name: litecoind_node3
+    command: -printtoconsole -regtest=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19443 -addnode=litecoind:19444 -addnode=litecoind_node1:19444 -addnode=litecoind_node2:19444 -addnode=litecoind_node4:19444 -addnode=litecoind_node5:19444 -addnode=litecoind_node6:19444
+    volumes:
+      - ./data/litecoin-node3/:/home/litecoin/.litecoin
+      #- ./litecoind/litecoin.conf:/home/litecoin/.litecoin/litecoin.conf
+    ports:
+      - 20401:19443
+      - 20402:19444
+    links:
+      - "litecoind"
+    expose:
+      - "20401"
+      
+  litecoind_node4:
+    image: uphold/litecoin-core:0.17
+    container_name: litecoind_node4
+    command: -printtoconsole -regtest=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19443 -addnode=litecoind:19444  -addnode=litecoind_node1:19444 -addnode=litecoind_node2:19444 -addnode=litecoind_node3:19444 -addnode=litecoind_node5:19444 -addnode=litecoind_node6:19444
+    volumes:
+      - ./data/litecoin-node4/:/home/litecoin/.litecoin
+      #- ./litecoind/litecoin.conf:/home/litecoin/.litecoin/litecoin.conf
+    ports:
+      - 20501:19443
+      - 20502:19444
+    links:
+      - "litecoind"
+    expose:
+      - "20501"      
