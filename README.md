@@ -41,3 +41,16 @@ while true; do qtum-cli -regtest -rpcuser electrum -rpcpassword electrum generat
 |qtumd_node1 | 13889 |
 |qtumd_node2 | 13988 |
 |qtumd_node3 | 13981 |
+
+
+__________
+## BCH
+
+docker-compose exec bitcoind bash
+
+while true; do  bitcoin-cli -regtest -rpcuser=electrum -rpcpassword=electrum generate 10; sleep 3; done
+
+|node           | port  |
+|---------------|-------|
+|bitcoind       | 18343 |
+|bitcoind_node1 | 18454 |
