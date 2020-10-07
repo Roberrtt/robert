@@ -4,6 +4,8 @@
 ___________
 ## BTC
 
+docker-compose up -d 
+
 docker-compose exec bitcoind bash:
 
 while true; do bitcoin-cli -regtest generate 1; sleep 300; done
@@ -16,6 +18,8 @@ while true; do bitcoin-cli -regtest generate 1; sleep 300; done
 |bicoind_node3 | 18475 |
 ______________
 ## LTC
+
+docker-compose up -d 
 
 docker-compose exec litecoind bash
 
@@ -31,6 +35,8 @@ while true; do litecoin-cli -regtest generate 1; sleep 300; done
 ______________
 ## QTUM
 
+docker-compose up -d 
+
 docker-compose exec qtumd bash
 
 while true; do qtum-cli -regtest -rpcuser electrum -rpcpassword electrum generate 1; sleep 300; done
@@ -45,6 +51,8 @@ while true; do qtum-cli -regtest -rpcuser electrum -rpcpassword electrum generat
 
 __________
 ## BCH
+
+docker-compose up -d 
 
 docker-compose exec bitcoind bash
 
