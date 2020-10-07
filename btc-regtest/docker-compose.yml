@@ -15,8 +15,9 @@ services:
     expose:
       # rpc api
       - "18443"
+    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443  -addnode=bitcoind_node1:18444 -addnode=bitcoind_node2:18444
     volumes:
-      - ./bitcoind/bitcoin.conf:/home/bitcoin/bitcoin.conf
+      - ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/bitcoind:/home/bitcoin/.bitcoin
 
 
@@ -62,55 +63,5 @@ services:
     links:
       - "bitcoind"
 
-  bitcoind_node3:
-    image:  ruimarinho/bitcoin-core:0.17
-    #build: "./bitcoind"
-    container_name:  bitcoind_node3
-    ports:
-      # faucet api
-      - "18474:18443"
-      - "18475:18444"
-    expose:
-      # rpc api
-      - "18474"
-    volumes:
-      #- ./bitcoind_node/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
-      - ./data/btc_node3/bitcoind:/home/bitcoin/.bitcoin
-    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -addnode=bitcoind_node2:18444 -addnode=bitcoind_node4:18444 -addnode=bitcoind_node5:18444 -addnode=bitcoind_node6:18444
-    links:
-      - "bitcoind"
-     
 
-  bitcoind_node4:
-    image:  ruimarinho/bitcoin-core:0.17
-    container_name:  bitcoind_node4
-    ports:
-      # faucet api
-      - "18484:18443"
-      - "18485:18444"
-    expose:
-      # rpc api
-      - "18484"
-    volumes:
-      - ./data/btc_node4/bitcoind:/home/bitcoin/.bitcoin
-    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -addnode=bitcoind_node2:18444 -addnode=bitcoind_node2:18444 -addnode=bitcoind_node3:18444 -addnode=bitcoind_node5:18444 -addnode=bitcoind_node6:18444
-    links:
-      - "bitcoind"
-
-
-  bitcoind_node5:
-    image:  ruimarinho/bitcoin-core:0.17
-    container_name:  bitcoind_node5
-    ports:
-      # faucet api
-      - "18494:18443"
-      - "18495:18444"
-    expose:
-      # rpc api
-      - "18484"
-    volumes:
-      - ./data/btc_node5/bitcoind:/home/bitcoin/.bitcoin
-    command: -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -addnode=bitcoind_node2:18444 -addnode=bitcoind_node3:18444 -addnode=bitcoind_node4:18444 -addnode=bitcoind_node6:18444
-    links:
-      - "bitcoind"
 
