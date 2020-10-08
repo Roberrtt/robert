@@ -12,7 +12,7 @@ services:
     command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd_node1:23888 -addnode=qtumd_node2:23888 -addnode=qtumd_node3:23888 -addnode=qtumd_node4:23888 -addnode=qtumd_node5:23888 -addnode=qtumd_node6:23888
     volumes:
       - ./data/qtum:/root/.qtum/
-     #- ./qtum/qtum.conf:/root/.qtum/qtum.conf
+      - ./qtum/qtum.conf:/root/.qtum/qtum.conf
 
   qtumd_node1:
     image: qtum/qtum:0.17.6
