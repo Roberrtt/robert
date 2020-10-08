@@ -12,7 +12,7 @@ services:
       - "18343"
       - "18333"
     volumes:
-      #- /opt/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
+      #- ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/bitcoind:/root/.bitcoin/
     command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoind_node1:18333 -addnode=bitcoind_node2:18333 
 
