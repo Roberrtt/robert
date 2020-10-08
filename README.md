@@ -39,7 +39,7 @@ docker-compose up -d
 
 docker-compose exec qtumd bash
 
-while true; do qtum-cli -regtest -rpcuser electrum -rpcpassword electrum generate 1; sleep 300; done
+while true; do qtum-cli -regtest  generate 1; sleep 300; done
 
 |node        | port  |
 |------------|-------|
