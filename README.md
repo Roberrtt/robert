@@ -91,7 +91,7 @@ while true; do dogecoin-cli -regtest generate 1; sleep 300; done
 ______________
 
 
-## DOGECOIN
+## DASH
 
 docker-compose exec dogecoind bash:
 
