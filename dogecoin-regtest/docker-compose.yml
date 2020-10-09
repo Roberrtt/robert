@@ -1,0 +1,58 @@
+
+version: '2'
+services:
+  dogecoind:
+    image: messari/dogecoin-core:latest
+    #build: "./bitcoind"
+    container_name:  dogecoind
+    ports:
+      # faucet api
+      - "44555:44555"
+      - "18444:18444"
+    expose:
+      - "44555"
+      - "18444"
+    volumes:
+      - ./dogecoind/dogecoin.conf:/root/.dogecoin/dogecoin.conf
+      - ./data/dogecoind:/home/dogecoin/.dogecoin
+    command: dogecoind -printtoconsole  -listen=1 -regtest=1 -port=18444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind_node1:18444 -addnode=dogecoind_node2:18444 
+
+
+  dogecoind_node1:
+    image:  messari/dogecoin-core:latest
+    #build: "./bitcoind_node"
+    container_name:  dogecoind_node1
+    ports:
+      # faucet api
+      - "44565:44555"
+      - "44566:18444"
+    expose:
+      - "44565"
+      - "44566"
+    volumes:
+      - ./data/dogecoind_node1:/home/dogecoin/.dogecoin
+    command: dogecoind -printtoconsole  -listen=1 -regtest=1 -port=18444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind:18444 -addnode=dogecoind_node2:18444 
+    links:
+      - "dogecoind"
+      
+      
+  dogecoind_node2:
+     image:  messari/dogecoin-core:latest
+     #build: "./bitcoind_node"
+     container_name:  dogecoind_node2
+     ports:
+      # faucet api
+      - "44575:18444"
+      - "44576:18444"
+     expose:
+      - "44555"
+      - "18444"
+     volumes:
+      - ./data/dogecoind_node2:/home/dogecoin/.dogecoin
+     command: dogecoind -printtoconsole  -listen=1 -regtest=1 -port=18444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 addnode=bitcoind_node1:18444 -addnode=bitcoind:18444  
+     links:
+      - "dogecoind" 
+
+
+
+   
