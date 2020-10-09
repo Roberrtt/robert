@@ -77,4 +77,15 @@ while true; do bitcoin-cli -regtest generate 1; sleep 300; done
 |bicoind_node1 | 18455 |
 |bicoind_node2 | 18465 |
 |bicoind_node3 | 18475 |
+
+## DOGECOIN
+
+docker-compose exec dogecoind bash:
+
+while true; do dogecoin-cli -regtest generate 1; sleep 300; done
+
+|node            | port
+|----------------|-------|
+|dogecoind       | 44555 |
+|dogecoind_node1 | 44565 |
 ______________
