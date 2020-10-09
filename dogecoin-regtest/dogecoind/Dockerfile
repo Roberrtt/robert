@@ -1,4 +1,4 @@
-FROM uphold/litecoin-core:0.17
+FROM  messari/dogecoin-core:latest
 
 WORKDIR /home/dogecoin
 
