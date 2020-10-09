@@ -56,9 +56,25 @@ docker-compose up -d
 
 docker-compose exec bitcoind bash
 
-while true; do  bitcoin-cli -regtest -rpcuser=electrum -rpcpassword=electrum generate 10; sleep 3; done
+while true; do  bitcoin-cli -regtest  generate 10; sleep 3; done
 
 |node           | port  |
 |---------------|-------|
 |bitcoind       | 18343 |
 |bitcoind_node1 | 18454 |
+
+## BTC SV
+
+docker-compose up -d 
+
+docker-compose exec bitcoind bash:
+
+while true; do bitcoin-cli -regtest generate 1; sleep 300; done
+
+|node          | port
+|--------------|-------|
+|bitcoind      | 18443 |
+|bicoind_node1 | 18455 |
+|bicoind_node2 | 18465 |
+|bicoind_node3 | 18475 |
+______________
