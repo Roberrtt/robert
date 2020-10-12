@@ -1,9 +1,9 @@
 version: '2'
 services:
-  bitcoind:
+  bitcoindcash:
     image: slashrsm/bitcoin-cash-regtest
     #build: "./bitcoind"
-    container_name:  bitcoind
+    container_name:  bitcoindcash
     ports:
       # faucet api
       - "18343:18332"
@@ -12,15 +12,15 @@ services:
       - "18343"
       - "18333"
     volumes:
-      #- ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/bitcoind:/root/.bitcoin/
-    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoind_node1:18333 -addnode=bitcoind_node2:18333 
+      - ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
+      - ./data/bitcoindcash:/root/.bitcoin/
+    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash_node1:18333 -addnode=bitcoindcash_node2:18333 
 
 
-  bitcoind_node1:
+  bitcoindcash_node1:
     image:  slashrsm/bitcoin-cash-regtest
     #build: "./bitcoind_node"
-    container_name:  bitcoind_node1
+    container_name:  bitcoindcash_node1
     ports:
       # faucet api
       - "18454:18332"
@@ -30,26 +30,26 @@ services:
       - "18333"
     volumes:
       #- /opt/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/btc_node1:/root/.bitcoin/
-    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoind:18333 -addnode=bitcoind_node2:18333 
+      - ./data/bitcoindcash_node1:/root/.bitcoin/
+    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash:18333 -addnode=bitcoindcash_node2:18333 
     links:
-      - "bitcoind"
+      - "bitcoindcash"
       
       
-  bitcoind_node2:
-     image:  slashrsm/bitcoin-cash-regtest
-     #build: "./bitcoind_node"
-     container_name:  bitcoind_node2
-     ports:
+  bitcoindcash_node2:
+    image:  slashrsm/bitcoin-cash-regtest
+    #build: "./bitcoind_node"
+    container_name:  bitcoindcash_node2
+    ports:
       # faucet api
-      - "18444:18332"
+      - "18464:18332"
       - "18463:18333"
-     expose:
+    expose:
       - "18464"
-      - "18463"
-     volumes:
+      - "18333"
+    volumes:
       #- /opt/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/btc_node2:/root/.bitcoin/
-     command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 addnode=bitcoind_node1:18333 -addnode=bitcoind:18333  
-     links:
-      - "bitcoind" 
+      - ./data/bitcoindcash_node2:/root/.bitcoin/
+    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash:18333 -addnode=bitcoindcash_node1:18333 
+    links:
+      - "bitcoindcash"
