@@ -54,15 +54,15 @@ __________
 
 docker-compose up -d 
 
-docker-compose exec bitcoind bash
+docker-compose exec bitcoindcash bash
 
 while true; do  bitcoin-cli -regtest  generate 10; sleep 3; done
 
 |node           | port  |
 |---------------|-------|
-|bitcoind       | 18343 |
-|bitcoind_node1 | 18454 |
-|bitcoind_node1 | 18464 |
+|bitcoindcash       | 18343 |
+|bitcoindcash_node1 | 18454 |
+|bitcoindcash_node1 | 18464 |
 
 ## BTC SV
 
