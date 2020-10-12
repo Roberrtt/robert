@@ -2,54 +2,45 @@
 version: '2'
 services:
   dogecoind:
-    image: messari/dogecoin-core:latest
+    image: casperstack/dogecoin:1.14.0
     #build: "./"
     container_name:  dogecoind
     ports:
       # faucet api
       - "44555:44555"
-      - "44556:44556"
-    expose:
-      - "44555"
-      - "44556"
+      - "18444:18444"
     volumes:
       - ./dogecoind/dogecoin.conf:/root/.dogecoin/dogecoin.conf
-      - ./data/dogecoind:/home/dogecoin/.dogecoin
-    command:  -printtoconsole  -listen=1 -regtest=1 -port=44556 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind_node1:44556 -addnode=dogecoind_node2:44556 
+      - ./data/dogecoind:/root/.dogecoin/
+    command: dogecoind -printtoconsole  -listen=1 -regtest=1 -port=18444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind_node1:18444 -addnode=dogecoind_node2:18444 
 
 
   dogecoind_node1:
-    image:  messari/dogecoin-core:latest
+    image:  casperstack/dogecoin:1.14.0
     #build: "."
     container_name:  dogecoind_node1
     ports:
       # faucet api
       - "44565:44555"
-      - "44566:44556"
-    expose:
-      - "44565"
-      - "44566"
+      - "18454:18444"
     volumes:
-      - ./data/dogecoind_node1:/home/dogecoin/.dogecoin
-    command:  -printtoconsole  -listen=1 -regtest=1 -port=44556 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind:44556 -addnode=dogecoind_node2:44556 
+      - ./data/dogecoind_node1:/root/.dogecoin/
+    command: dogecoind -printtoconsole  -listen=1 -regtest=1 -port=18444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind:18444 -addnode=dogecoind_node2:18444 
     links:
       - "dogecoind"
       
       
   dogecoind_node2:
-    image:  messari/dogecoin-core:latest
+    image:  casperstack/dogecoin:1.14.0
     #build: "."
     container_name:  dogecoind_node2
     ports:
       # faucet api
       - "44575:44555"
-      - "44576:44556"
-    expose:
-      - "44575"
-      - "44576"
+      - "18464:18444"
     volumes:
-      - ./data/dogecoind_node2:/home/dogecoin/.dogecoin
-    command:  -printtoconsole  -listen=1 -regtest=1 -port=44556 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind:44556 -addnode=dogecoind_node1:44556 
+      - ./data/dogecoind_node2:/root/.dogecoin/
+    command: dogecoind -printtoconsole  -listen=1 -regtest=1 -port=18444 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=44555 -addnode=dogecoind:18444 -addnode=dogecoind_node1:18444 
     links:
       - "dogecoind" 
 
