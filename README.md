@@ -62,6 +62,7 @@ while true; do  bitcoin-cli -regtest  generate 10; sleep 3; done
 |---------------|-------|
 |bitcoind       | 18343 |
 |bitcoind_node1 | 18454 |
+|bitcoind_node1 | 18464 |
 
 ## BTC SV
 
@@ -88,6 +89,7 @@ while true; do dogecoin-cli -regtest generate 1; sleep 300; done
 |----------------|-------|
 |dogecoind       | 44555 |
 |dogecoind_node1 | 44565 |
+|dogecoind_node1 | 44575 |
 ______________
 
 
