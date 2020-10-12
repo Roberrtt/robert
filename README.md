@@ -88,6 +88,7 @@ while true; do dogecoin-cli -regtest generate 1; sleep 300; done
 |----------------|-------|
 |dogecoind       | 44555 |
 |dogecoind_node1 | 44565 |
+|dogecoind_node1 | 44575 |
 ______________
 
 
