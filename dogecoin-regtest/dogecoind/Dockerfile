@@ -9,7 +9,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN npm install
 
-ADD litecoin.conf /home/dogecoin/
+ADD dogecoin.conf /home/dogecoin/
 ADD startup.sh /home/dogecoin/
 ADD faucet.js /home/dogecoin/
 

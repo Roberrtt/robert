@@ -5,7 +5,7 @@ services:
     build: "./"
     container_name: dashd
     ports:
-      - "18332:19998"
+      - "18332:19999"
       - "18333:19899"
     expose:
       - "18444"
@@ -13,7 +13,7 @@ services:
     volumes:
       - ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind:/home/dash/.dashcore
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19998  -addnode=dashd_node1:19899  -addnode=dashd_node2:19899 
+    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19899  -addnode=dashd_node2:19899 
 
   dashd_node1:
     #image: uphold/docker-dash-core:0.15
@@ -21,7 +21,7 @@ services:
     container_name: dashd_node1
     ports:
       # faucet api
-      - "18453:19998"
+      - "18453:19999"
       - "18454:19899"
     expose:
       - "18454"
@@ -29,7 +29,7 @@ services:
     volumes:
       #- ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind_1:/home/dash/.dashcore
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19998  -addnode=dashd_node1:19899  -addnode=dashd_node2:19899 
+    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19899  -addnode=dashd_node2:19899 
 
   dashd_node2:
     #image: uphold/docker-dash-core:0.15
@@ -37,7 +37,7 @@ services:
     container_name: dashd_node2
     ports:
       # faucet api
-      - "18463:19998"
+      - "18463:19999"
       - "18464:19899"
     expose:
       - "18464"
@@ -45,4 +45,4 @@ services:
     volumes:
       #- ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind_2:/home/dash/.dashcore
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19998  -addnode=dashd_node1:19999  -addnode=dashd:19999
+    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19899  -addnode=dashd:19899
