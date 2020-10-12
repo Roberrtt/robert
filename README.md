@@ -62,6 +62,7 @@ while true; do  bitcoin-cli -regtest  generate 10; sleep 3; done
 |---------------|-------|
 |bitcoind       | 18343 |
 |bitcoind_node1 | 18454 |
+|bitcoind_node1 | 18464 |
 
 ## BTC SV
 
