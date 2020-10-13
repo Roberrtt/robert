@@ -1,7 +1,7 @@
 version: '2'
 services:
   bitcoindcash:
-    image: slashrsm/bitcoin-cash-regtest
+    image: kp666/bitcoincash-docker:latest
     #build: "./bitcoind"
     container_name:  bitcoindcash
     ports:
@@ -12,13 +12,13 @@ services:
       - "18343"
       - "18333"
     volumes:
-      - ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
+      - ./bitcoindabc/bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/bitcoindcash:/root/.bitcoin/
     command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash_node1:18333 -addnode=bitcoindcash_node2:18333 
 
 
   bitcoindcash_node1:
-    image:  slashrsm/bitcoin-cash-regtest
+    image:  kp666/bitcoincash-docker:latest
     #build: "./bitcoind_node"
     container_name:  bitcoindcash_node1
     ports:
@@ -37,7 +37,7 @@ services:
       
       
   bitcoindcash_node2:
-    image:  slashrsm/bitcoin-cash-regtest
+    image:  kp666/bitcoincash-docker:latest
     #build: "./bitcoind_node"
     container_name:  bitcoindcash_node2
     ports:

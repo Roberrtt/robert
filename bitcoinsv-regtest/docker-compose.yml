@@ -17,7 +17,7 @@ services:
       - "18443"
     volumes:
       - ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/bitcoind:/root/.bitcoin
+      - ./data/bitcoind:/home/bitcoin/.bitcoin
     command: bitcoind -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443  -addnode=bitcoind_node1:18444  -addnode=bitcoind_node2:18444 -excessiveblocksize=0 -maxstackmemoryusageconsensus=0
    
   

@@ -6,14 +6,14 @@ services:
     container_name: dashd
     ports:
       - "18332:19999"
-      - "18333:19899"
+      - "18333:19998"
     expose:
       - "18444"
       - "18443"
     volumes:
       - ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind:/home/dash/.dashcore
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19899  -addnode=dashd_node2:19899 
+    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19998  -addnode=dashd_node2:19998 -port=19998
 
   dashd_node1:
     #image: uphold/docker-dash-core:0.15
@@ -22,14 +22,14 @@ services:
     ports:
       # faucet api
       - "18453:19999"
-      - "18454:19899"
+      - "18454:19998"
     expose:
       - "18454"
       - "18453"
     volumes:
       #- ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind_1:/home/dash/.dashcore
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19899  -addnode=dashd_node2:19899 
+    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19998  -addnode=dashd_node2:19998 -port=19998
 
   dashd_node2:
     #image: uphold/docker-dash-core:0.15
@@ -38,11 +38,11 @@ services:
     ports:
       # faucet api
       - "18463:19999"
-      - "18464:19899"
+      - "18464:19998"
     expose:
       - "18464"
       - "18463"
     volumes:
       #- ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind_2:/home/dash/.dashcore
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19899  -addnode=dashd:19899
+    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node1:19998  -addnode=dashd:19998 -port=19998
