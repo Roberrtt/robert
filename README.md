@@ -75,9 +75,8 @@ while true; do bitcoin-cli -regtest generate 1; sleep 300; done
 |node          | port
 |--------------|-------|
 |bitcoind      | 18443 |
-|bicoind_node1 | 18455 |
-|bicoind_node2 | 18465 |
-|bicoind_node3 | 18475 |
+|bicoind_node1 | 18454 |
+|bicoind_node2 | 18464 |
 
 ## DOGECOIN
 
