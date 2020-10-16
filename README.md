@@ -54,7 +54,7 @@ __________
 
 docker-compose up -d 
 
-docker-compose exec bitcoindcash bash
+docker-compose exec bitcoind bash
 
 bitcoin-cli getnewaddress
 
@@ -62,9 +62,9 @@ while true; do bitcoin-cli generatetoaddress 1 <get address >; sleep 300; done
 
 |node           | port  |
 |---------------|-------|
-|bitcoindcash       | 18443 |
-|bitcoindcash_node1 | 18453 |
-|bitcoindcash_node1 | 18463 |
+|bitcoind       | 18443 |
+|bitcoind1 | 18453 |
+|bitcoind2 | 18463 |
 
 ## BTC SV
 
