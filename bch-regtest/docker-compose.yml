@@ -1,55 +1,39 @@
-version: '2'
+version: '3'
 services:
-  bitcoindcash:
-    image: kp666/bitcoincash-docker:latest
-    #build: "./bitcoind"
-    container_name:  bitcoindcash
+  bitcoind:
+    build: .
+    container_name: bitcoind
+    # specify additional command line arguments here
+    command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind1:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0 
     ports:
-      # faucet api
-      - "18343:18332"
-      - "18333:18333"
-    expose:
-      - "18343"
-      - "18333"
+      - "18444:18444"
+      - "18443:18443"
     volumes:
-      - ./bitcoindabc/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/bitcoindcash:/root/.bitcoin/
-    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash_node1:18333 -addnode=bitcoindcash_node2:18333 
-
-
-  bitcoindcash_node1:
-    image:  kp666/bitcoincash-docker:latest
-    #build: "./bitcoind_node"
-    container_name:  bitcoindcash_node1
+      # using a custom path for data dir
+      - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
+      - ./data:/data
+    
+  
+  bitcoind1:
+    build: .
+    container_name: bitcoind1
+    command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0
     ports:
-      # faucet api
-      - "18454:18332"
-      - "18453:18333"
-    expose:
-      - "18454"
-      - "18333"
+      - "18445:18444"
+      - "18453:18443"
     volumes:
-      #- /opt/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/bitcoindcash_node1:/root/.bitcoin/
-    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash:18333 -addnode=bitcoindcash_node2:18333 
+      - ./data/bitcoind1:/data
+    links: 
+      - "bitcoind"
+          
+  bitcoind2:
+    build: .
+    container_name: bitcoind2
+    command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind1:18444 -rpcbind=0.0.0.0
+    ports:
+      - "18455:18444"
+      - "18463:18443"
+    volumes:
+      - ./data/bitcoind2:/data
     links:
-      - "bitcoindcash"
-      
-      
-  bitcoindcash_node2:
-    image:  kp666/bitcoincash-docker:latest
-    #build: "./bitcoind_node"
-    container_name:  bitcoindcash_node2
-    ports:
-      # faucet api
-      - "18464:18332"
-      - "18463:18333"
-    expose:
-      - "18464"
-      - "18333"
-    volumes:
-      #- /opt/bitcoin/bitcoin.conf:/root/.bitcoin/bitcoin.conf
-      - ./data/bitcoindcash_node2:/root/.bitcoin/
-    command: bitcoind -printtoconsole  -listen=1 -regtest=1 -port=18333 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18332 -addnode=bitcoindcash:18333 -addnode=bitcoindcash_node1:18333 
-    links:
-      - "bitcoindcash"
+      - "bitcoind"

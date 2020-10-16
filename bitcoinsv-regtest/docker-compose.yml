@@ -1,20 +1,13 @@
 version: '2'
 services:
   bitcoind:
-    image: bitcoinsv/bitcoin-sv
+    image: bitcoinsv/bitcoin-sv:1.0.5
     #build: "./"
     container_name: bitcoind
     ports:
       # faucet api
-      - "3001:3000"
-      - "18332:18332"
-      - "18333:18333"
       - "18443:18443"
       - "18444:18444"
-    expose:
-      - "8333"
-      - "8332"
-      - "18443"
     volumes:
       - ./bitcoind/bitcoin.conf:/root/.bitcoin/bitcoin.conf
       - ./data/bitcoind:/home/bitcoin/.bitcoin
@@ -24,43 +17,30 @@ services:
     
       
   bitcoind_node1:
-    image: bitcoinsv/bitcoin-sv
+    image: bitcoinsv/bitcoin-sv:1.0.5
     #build: "./"
     container_name: bitcoind_node1
     ports:
-      # faucet api
-      - "3021:3000"
-      - "18352:18332"
-      - "18353:18333"
       - "18454:18443"
       - "18455:18444"
-    expose:
-      - "18454"
     volumes:
      #- ./bitcoind_node/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
       - ./data/btc_node1/bitcoind:/home/bitcoin/.bitcoin
-    command: bitcoind  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444  -addnode=bitcoind_node2:18444  -excessiveblocksize=0 -maxstackmemoryusageconsensus=0
+    command: bitcoind  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443  -addnode=bitcoind:18444  -addnode=bitcoind_node2:18444  -excessiveblocksize=0 -maxstackmemoryusageconsensus=0
     links:
       - "bitcoind"
       
       
   bitcoind_node2:
-    image: bitcoinsv/bitcoin-sv
+    image: bitcoinsv/bitcoin-sv:1.0.5
     #build: "./"
     container_name: bitcoind_node2
     ports:
-      # faucet api
-      - "3031:3000"
-      - "18362:18332"
-      - "18363:18333"
       - "18464:18443"
       - "18465:18444"
-    expose:
-      # rpc api
-      - "18464"
     volumes:
       #- ./bitcoind_node/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
       - ./data/btc_node3/bitcoind:/home/bitcoin/.bitcoin
-    command : bitcoind -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18444  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -excessiveblocksize=0 -maxstackmemoryusageconsensus=0
+    command : bitcoind -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -excessiveblocksize=0 -maxstackmemoryusageconsensus=0
     links:
       - "bitcoind"
