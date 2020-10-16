@@ -8,7 +8,7 @@ docker-compose up -d
 
 docker-compose exec bitcoind bash:
 
-while true; do bitcoin-cli -regtest generate 1; sleep 300; done
+while true; do bitcoin-cli -regtest generate 1 ; sleep 300; done
 
 |node          | port
 |--------------|-------|
@@ -54,15 +54,17 @@ __________
 
 docker-compose up -d 
 
-docker-compose exec bitcoindcash bash
+docker-compose exec bitcoind bash
 
-while true; do  bitcoin-cli -regtest  generate 10; sleep 3; done
+bitcoin-cli getnewaddress
+
+while true; do bitcoin-cli generatetoaddress 1 <get address >; sleep 300; done
 
 |node           | port  |
 |---------------|-------|
-|bitcoindcash       | 18343 |
-|bitcoindcash_node1 | 18454 |
-|bitcoindcash_node1 | 18464 |
+|bitcoind       | 18443 |
+|bitcoind1 | 18453 |
+|bitcoind2 | 18463 |
 
 ## BTC SV
 
@@ -75,9 +77,8 @@ while true; do bitcoin-cli -regtest generate 1; sleep 300; done
 |node          | port
 |--------------|-------|
 |bitcoind      | 18443 |
-|bicoind_node1 | 18455 |
-|bicoind_node2 | 18465 |
-|bicoind_node3 | 18475 |
+|bicoind_node1 | 18454 |
+|bicoind_node2 | 18464 |
 
 ## DOGECOIN
 
@@ -95,7 +96,7 @@ ______________
 
 ## DASH
 
-docker-compose exec dogecoind bash:
+docker-compose exec dashd bash:
 
 while true; do dash-cli -regtest generate 1; sleep 300; done
 
