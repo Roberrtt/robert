@@ -44,3 +44,20 @@ services:
     command : bitcoind -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443  -addnode=bitcoind:18444 -addnode=bitcoind_node1:18444 -excessiveblocksize=0 -maxstackmemoryusageconsensus=0
     links:
       - "bitcoind"
+      
+  electrumx:
+    image: lukechilds/electrumx
+    depends_on:
+      - "bitcoind"
+    ports:
+      - "55002:50002"
+      - "55001:50001"
+    volumes:
+      - ./data/electrumx:/data
+    environment:
+      - DAEMON_URL=http://electrum:electrum@bitcoind:18443
+      - COIN=BitcoinSV
+      - NET=regtest
+      - ALLOW_ROOT=1
+    links:
+      - "bitcoind"

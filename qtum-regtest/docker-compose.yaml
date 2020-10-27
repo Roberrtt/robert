@@ -60,4 +60,21 @@ services:
     links:
       - "qtumd"
 
-
+  electrumx:
+    image: lukechilds/electrumx
+    container_name:  qtumd-electrumx
+    build: "./electrumx"
+    depends_on:
+      - "qtumd"
+    ports:
+      - "57001:50001"
+      - "57002:50002"
+    volumes:
+      - ./data/electrumx:/data
+    environment:
+      - DAEMON_URL=http://electrum:electrum@qtumd:19443
+      - COIN=qtum
+      - NET=regtest
+      - ALLOW_ROOT=1
+    links:
+      - "qtumd"

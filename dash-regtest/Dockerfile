@@ -1,8 +1,5 @@
 FROM debian:stable-slim
 
-LABEL maintainer.0="João Fonseca (@joaopaulofonseca)" \
-  maintainer.1="Pedro Branco (@pedrobranco)" \
-  maintainer.2="Rui Marinho (@ruimarinho)"
 
 RUN useradd -r dash \
   && apt-get update -y \
@@ -46,6 +43,6 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 9998 9999 19998 19999
+EXPOSE 9998 9999 19898 19899
 
 CMD ["dashd"]

@@ -74,4 +74,23 @@ services:
     links:
       - "litecoind"
     expose:
-      - "20501"      
+      - "20501" 
+      
+  electrumx:
+    image: lukechilds/electrumx
+    container_name:  litecoind-electrumx
+    build: "./electrumx"
+    depends_on:
+      - "litecoind"
+    ports:
+      - "56002:50002"
+      - "56001:50001"
+    volumes:
+      - ./data/electrumx:/data
+    environment:
+      - DAEMON_URL=http://electrum:electrum@litecoind:19443
+      - COIN=Litecoin
+      - NET=regtest
+      - ALLOW_ROOT=1
+    links:
+      - "litecoind"  

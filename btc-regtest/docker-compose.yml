@@ -63,5 +63,24 @@ services:
     links:
       - "bitcoind"
 
-
+ electrumx:
+    image: lukechilds/electrumx
+    #build: "./electrumx"
+    depends_on:
+      - "bitcoind"
+    ports:
+      - "55002:50002"
+      - "55001:50001"
+    volumes:
+      - ./data/electrumx:/data
+    environment:
+      - DAEMON_URL=http://electrum:electrum@bitcoind:18443
+      - COIN=BitcoinSegwit
+      - NET=regtest
+      - ALLOW_ROOT=1
+      #- RPC_HOST=electrumx
+      #- RPC_PORT=18443
+      #- HOST=electrumx
+    links:
+      - "bitcoind"
 

@@ -1,7 +1,7 @@
 version: '3'
 services:
   bitcoind:
-    build: .
+    build: ./
     container_name: bitcoind
     # specify additional command line arguments here
     command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind1:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0 
@@ -15,7 +15,7 @@ services:
     
   
   bitcoind1:
-    build: .
+    build: ./
     container_name: bitcoind1
     command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0
     ports:
@@ -27,7 +27,7 @@ services:
       - "bitcoind"
           
   bitcoind2:
-    build: .
+    build: ./
     container_name: bitcoind2
     command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind1:18444 -rpcbind=0.0.0.0
     ports:
@@ -35,5 +35,22 @@ services:
       - "18463:18443"
     volumes:
       - ./data/bitcoind2:/data
+    links:
+      - "bitcoind"
+      
+  electrumx:
+    image: lukechilds/electrumx
+    depends_on:
+      - "bitcoind"
+    ports:
+      - "55002:50002"
+      - "55001:50001"
+    volumes:
+      - ./data/electrumx:/data
+    environment:
+      - DAEMON_URL=http://electrum:electrum@bitcoind:18443
+      - COIN=BitcoinCashABC
+      - NET=regtest
+      - ALLOW_ROOT=1
     links:
       - "bitcoind"
