@@ -1,6 +1,6 @@
 # ATOMIC SWAP
 
-##Electrumx (electrum node is connected to node 0)
+## Electrumx (electrum node is connected to node 0)
 
 |Electrumx    |  (external/internal) |
 |-------------|----------------|
