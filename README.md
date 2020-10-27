@@ -1,5 +1,11 @@
 # ATOMIC SWAP
 
+##Electrumx (electrum node is connected to node 0)
+
+|Electrumx    |  (external/internal) |
+|-------------|----------------|
+|instance-ip: |55002 / 50002|
+|instance-ip: |55001 / 50001|
 
 ___________
 ## BTC
@@ -39,6 +45,7 @@ docker-compose up -d
 
 docker-compose exec qtumd bash
 
+|
 while true; do qtum-cli -regtest  generate 1; sleep 300; done
 
 |node        | port  |
