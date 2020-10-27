@@ -29,11 +29,7 @@ services:
     volumes:
       #- ./dash.conf:/root/.dashcore/dash.conf
       - ./data/dashcoind_1:/home/dash/.dashcore
-<<<<<<< HEAD
     command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19898  -addnode=dashd_node:19899  -addnode=dashd_node2:19899 -port=19899
-=======
-    command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19999  -addnode=dashd_node:19998  -addnode=dashd_node2:19998 -port=19998
->>>>>>> b9551067df9f77e75c6d7389efc0b8f7affe7ad6
 
   dashd_node2:
     image: uphold/dash-core:0.15
