@@ -109,7 +109,7 @@ while true; do dash-cli -regtest generate 1; sleep 300; done
 
 |node            | port
 |----------------|-------|
-|dashd           | 18332 |
+|dashd           | 19898 |
 |dashd_node1     | 18453 |
 |dashd_node2     | 18463 |
 ______________
