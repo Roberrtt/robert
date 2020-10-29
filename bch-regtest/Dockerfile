@@ -34,5 +34,5 @@ COPY bitcoin.conf /bitcoin.conf
 RUN chmod +x startup.sh entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 8332 8333 18444 18443
+EXPOSE 18444 18443
 CMD ["bitcoind"]

@@ -48,7 +48,7 @@ services:
     command: dashd -printtoconsole  -listen=1 -regtest=1  -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=19898  -addnode=dashd_node1:19899  -addnode=dashd:19899 -port=19899
    
   electrumx:
-    image: roberrtt/electrumx:latest
+    image: roberrtt/electrumxx:latestt
     #build: ./docker-electrumx
     depends_on:
       - "dashd"

@@ -1,10 +1,11 @@
 version: '3'
 services:
   bitcoind:
+    #image: uphold/bitcoin-abc:0.21.12
     build: ./
     container_name: bitcoind
     # specify additional command line arguments here
-    command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind1:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0 
+    command: bitcoind -printtoconsole -regtest=1 -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind1:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0 
     ports:
       - "18444:18444"
       - "18443:18443"
@@ -15,9 +16,10 @@ services:
     
   
   bitcoind1:
+   # image: uphold/bitcoin-abc:0.21.12
     build: ./
     container_name: bitcoind1
-    command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0
+    command: bitcoind -printtoconsole -regtest=1 -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind2:18444 -rpcbind=0.0.0.0
     ports:
       - "18445:18444"
       - "18453:18443"
@@ -27,9 +29,10 @@ services:
       - "bitcoind"
           
   bitcoind2:
+    #image: uphold/bitcoin-abc:0.21.12
     build: ./
     container_name: bitcoind2
-    command: bitcoind -printtoconsole -chain=regtest -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind1:18444 -rpcbind=0.0.0.0
+    command: bitcoind -printtoconsole -regtest=1 -listen=1 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum  -rpcport=18443 -port=18444 -addnode=bitcoind:18444 -addnode=bitcoind1:18444 -rpcbind=0.0.0.0
     ports:
       - "18455:18444"
       - "18463:18443"

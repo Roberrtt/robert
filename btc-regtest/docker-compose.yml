@@ -63,7 +63,7 @@ services:
     links:
       - "bitcoind"
 
- electrumx:
+  electrumx:
     image: lukechilds/electrumx
     #build: "./electrumx"
     depends_on:
