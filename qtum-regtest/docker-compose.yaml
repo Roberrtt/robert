@@ -63,7 +63,6 @@ services:
   electrumx:
     image: lukechilds/electrumx
     container_name:  qtumd-electrumx
-    build: "./electrumx"
     depends_on:
       - "qtumd"
     ports:
