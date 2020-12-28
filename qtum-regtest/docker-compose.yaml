@@ -1,79 +1,64 @@
 version: '2'
 services:
   qtumd:
-    image: qtum/qtum:0.17.6
+    image: qtum/qtum:0.18.1
     container_name: qtumd
     ports:
-      - "13888:13889"
+      - "13889:13889"
       - "23888:23888"
     expose:
-      - "13888"
+      - "13889"
       - "23888"
-    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd_node1:23888 -addnode=qtumd_node2:23888 -addnode=qtumd_node3:23888 -addnode=qtumd_node4:23888 -addnode=qtumd_node5:23888 -addnode=qtumd_node6:23888
+    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -txindex=1 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889  -addnode=qtumd_node1:23888 -addnode=qtumd_node2:23888  -rpcbind=0.0.0.0 -deprecatedrpc=generate 
     volumes:
       - ./data/qtum:/root/.qtum/
       - ./qtum/qtum.conf:/root/.qtum/qtum.conf
 
   qtumd_node1:
-    image: qtum/qtum:0.17.6
+    image: qtum/qtum:0.18.1
     container_name: qtumd_node1
     ports:
       - "13898:13889"
       - "13899:23888"
     expose:
-      - "13889"
+      - "13898"
       - "23888"
-    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd:23888 -addnode=qtumd_node2:23888 -addnode=qtumd_node3:23888 -addnode=qtumd_node4:23888 -addnode=qtumd_node5:23888 -addnode=qtumd_node6:23888
+    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0  -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd:23888 -addnode=qtumd_node2:23888 -rpcbind=0.0.0.0 -deprecatedrpc=generate 
     volumes:
-      - ./data/qtum_node1:/data
+      - ./data/qtum_node1:/root/.qtum/
     links:
       - "qtumd"
 
   qtumd_node2:
-    image: qtum/qtum:0.17.6
+    image: qtum/qtum:0.18.1
     container_name: qtumd_node2
     ports:
       - "13988:13889"
       - "13989:23888"
     expose:
-      - "13889"
+      - "13988"
       - "23888"
-    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd:23888 -addnode=qtumd_node1:23888 -addnode=qtumd_node3:23888 -addnode=qtumd_node4:23888 -addnode=qtumd_node5:23888 -addnode=qtumd_node6:23888
+    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd:23888 -addnode=qtumd_node1:23888 -rpcbind=0.0.0.0 -deprecatedrpc=generate 
     volumes:
-      - ./data/qtum_node2:/data
-    links:
-      - "qtumd"
-
-
-  qtumd_node3:
-    image: qtum/qtum:0.17.6
-    container_name: qtumd_node3
-    ports:
-      - "13981:13889"
-      - "13982:23888"
-    expose:
-      - "13981"
-      - "13982"
-    command: qtumd -listen=1 -regtest=1 -port=23888 -rpcallowip=0.0.0.0/0 -rpcuser=electrum -rpcpassword=electrum -rpcport=13889 -addnode=qtumd:23888 -addnode=qtumd_node1:23888 -addnode=qtumd_node2:23888 -addnode=qtumd_node4:23888 -addnode=qtumd_node5:23888 -addnode=qtumd_node6:23888
-    volumes:
-      - ./data/qtum_node3:/data
+      - ./data/qtum_node2:/root/.qtum/
     links:
       - "qtumd"
 
   electrumx:
-    image: lukechilds/electrumx
+    image: roberrtt/electrumx_qtum:1.1
     container_name:  qtumd-electrumx
     depends_on:
       - "qtumd"
     ports:
-      - "57001:50001"
-      - "57002:50002"
+      - "55002:50002"
+      - "55001:50001"
     volumes:
       - ./data/electrumx:/data
     environment:
-      - DAEMON_URL=http://electrum:electrum@qtumd:19443
-      - COIN=qtum
+      - DAEMON_URL=http://electrum:electrum@qtumd:13889
+      - COIN=Qtum
       - NET=regtest
       - ALLOW_ROOT=1
+      - TXINDEX=1
     links:
       - "qtumd"
